@@ -18,8 +18,13 @@ namespace XMLBuilder
     {
         // These two are used to access pictures on click later in the application
         public Dictionary<string, string> categoryPictureFile = new Dictionary<string, string>();
-        public Dictionary<string, string> subCatPictureFile = new Dictionary<string, string>();
         public string xmlFilePath = "";
+
+        public int titleIndex = 0;
+        public int textIndex = 0;
+        public int typeIndex = 0;
+
+
         public XMLReader()
         {
             InitializeComponent();
@@ -150,43 +155,33 @@ namespace XMLBuilder
             {
 
                 XmlDocument doc = new XmlDocument();
+
                 doc.Load(xmlFilePath);
+
                 XmlReader reader = XmlReader.Create(xmlFilePath);
-
-                XmlNodeList subcategoryNode = doc.GetElementsByTagName("SubCategory");
-                XmlNodeList titleNode = doc.GetElementsByTagName("Title");
-                XmlNodeList typeNode = doc.GetElementsByTagName("Type");
-                XmlNodeList weightNode = doc.GetElementsByTagName("Weight");
-                XmlNodeList recordPictureNode = doc.GetElementsByTagName("RecordPicture");
-                XmlNodeList pictureNode = doc.GetElementsByTagName("Picture");
-                XmlNodeList videoNode = doc.GetElementsByTagName("Video");
-
-                Dictionary<int, string> titleItems = new Dictionary<int, string>();
-                Dictionary<int, string> textItems = new Dictionary<int, string>();
-                Dictionary<int, string> typeItems = new Dictionary<int, string>();
-                Dictionary<int, string> weightItems = new Dictionary<int, string>();
-                Dictionary<int, string> recordPicturesItems = new Dictionary<int, string>();
-                Dictionary<int, string> pictureItems = new Dictionary<int, string>();
-                Dictionary<int, string> videoItems = new Dictionary<int, string>();
 
                 reader.MoveToContent();
 
-                for (int i = 0; i < subcategoryNode.Count; i++)
-                {
-
-                    titleItems.Add(i, titleNode[i].InnerText);
-                    textItems.Add(i, titleNode[i].InnerText);
-                    typeItems.Add(i, typeNode[i].InnerText);
-                    weightItems.Add(i, weightNode[i].InnerText);
-                    recordPicturesItems.Add(i, recordPictureNode[i].InnerText);
-                    pictureItems.Add(i, pictureNode[i].InnerText);
-                    videoItems.Add(i, videoNode[i].InnerText);
-                }
-
                 int categoryCounter = -1;
                 int subCategoryCounter = -1;
-                int stepsCounter = 0;
-                int variableCounter = 1;
+                int stepsCounter = -1;
+                int stepCounter = -1;
+                int choiceCounter = 0;
+                int choiceNodeFinder = 0;
+                int measurementCounter = 0;
+                int measurementNodeFinder = 0;
+                int variableCounter = 0;
+                int variableNodeFinder = 0;
+
+                // Makes all group boxes invisible so they can be dynamically added later
+                meaurementsGroupBox.Visible = false;
+                choicesGroupBox.Visible = false;
+                functionGroupBox.Visible = false;
+
+                // Clears all nodes and clears dictionary storage 
+                xmlTreeView.Nodes.Clear();
+                categoryPictureFile.Clear();
+
 
                 while (reader.Read())
                 {
@@ -199,27 +194,109 @@ namespace XMLBuilder
                                 xmlTreeView.Nodes.Add($"{reader.LocalName}: {reader.GetAttribute(0)}");
                                 categoryPictureFile.Add(reader.GetAttribute(0), reader.GetAttribute(2));
                                 categoryCounter++;
+                                subCategoryCounter = -1;
                                 break;
                             case "SubCategory":
-                                xmlTreeView.Nodes[categoryCounter].Nodes.Add($"{reader.LocalName}: {reader.GetAttribute(0)}");
-                                subCatPictureFile.Add(reader.GetAttribute(0), reader.GetAttribute(2));
+                                xmlTreeView.Nodes[categoryCounter].Nodes.Add($"{reader.LocalName}: {reader.GetAttribute(0)}   PicFile: {reader.GetAttribute(2)}");
+
+                                stepsCounter = -1;
                                 subCategoryCounter++;
                                 break;
                             case "Steps":
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Title: {titleItems[stepsCounter]}");
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Text: {textItems[stepsCounter]}");
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Type: {typeItems[stepsCounter]}");
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Weight: {weightItems[stepsCounter]}");
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Picture: {pictureItems[stepsCounter]}");
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter].Nodes.Add($"Video: {videoItems[stepsCounter]}");
-                                stepsCounter = subCategoryCounter;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes.Add("Steps");
+                                stepCounter = -1;
+                                stepsCounter++;
+                                break;
+                            case "Step":
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes.Add("Step");
+                                choiceNodeFinder = 0;
+                                measurementNodeFinder = 0;
+                                variableNodeFinder = 0;
+                                stepCounter++;
+                                break;
+                            case "Title":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Title: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Text":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Text: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Type":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Type: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Weight":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Weight: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "RecordPicture":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"RecordPicture: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Picture":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Picture: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Video":
+                                choiceNodeFinder++;
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Video: {reader.ReadElementContentAsString()}");
+
+                                break;
+                            case "Choices":
+                                choicesGroupBox.Visible = true;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Choices: {reader.GetAttribute(0)}");
+                                measurementNodeFinder++;
+                                variableNodeFinder++;
+                                choiceCounter = 0;
+                                break;
+                            case "Choice":
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes[choiceNodeFinder].Nodes.Add($"Choice_Title{choiceCounter + 1}: {reader.GetAttribute(0)}");
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes[choiceNodeFinder].Nodes[choiceCounter].Nodes.Add($"Choice_Picture{choiceCounter + 1}: {reader.GetAttribute(2)}");
+                                choiceCounter++;
+                                measurementNodeFinder++;
+                                break;
+                            case "Measurements":
+                                meaurementsGroupBox.Visible = true;
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Measurements: ");
+                                variableNodeFinder++;
+                                measurementCounter = 0;
+                                
+                                break;
+                            case "Measurement":
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes[measurementNodeFinder].Nodes.Add($"Measurement_Title{measurementCounter + 1}: {reader.GetAttribute(0)}");
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes[measurementNodeFinder].Nodes[measurementCounter].Nodes.Add($"Measurement_Type{measurementCounter + 1}: {reader.GetAttribute(1)}");
+                                measurementCounter++;
+                                //xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes.Add($"Function: {reader.GetAttribute(0)}");
                                 break;
                             case "Function":
-                                variableCounter = 1;
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter - 1].Nodes.Add($"Function: {reader.GetAttribute(0)}");
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes.Add($"Function: {reader.GetAttribute(0)}");
+                                functionGroupBox.Visible = true;
+                                variableCounter = 0;
                                 break;
                             case "Variable":
-                                xmlTreeView.Nodes[categoryCounter].Nodes[stepsCounter - 1].Nodes[6].Nodes.Add($"Variable{variableCounter}: {reader.GetAttribute(0)}");
+                                xmlTreeView.Nodes[categoryCounter].Nodes[subCategoryCounter].Nodes[stepsCounter].Nodes[stepCounter].Nodes[variableNodeFinder].Nodes.Add($"Variable_Name{variableCounter + 1}: {reader.GetAttribute(0)}");
+
                                 variableCounter++;
                                 break;
                         }
@@ -256,34 +333,52 @@ namespace XMLBuilder
                         categoryPictureTextBox.Text = categoryPictureFile[selectedNode];
                         break;
                 case "SubCategory:":
-                    // Clears all text boxes
+                    subCategoryTextBox.Text = selectedNode;
+                    subCatPicTextBox.Text = selectedNode.Split(' ').LastOrDefault();
+                    break;
+
+                case "Step":
+
                     ClearTextboxes(this.Controls);
 
                     bool hasFunction = false;
 
                     // Gets Category nodes category portion of string and value portion
-                    string parentNodeCategory = e.Node.Parent.Text.Split(' ').FirstOrDefault();
-                    string parentNode = e.Node.Parent.Text.Substring(parentNodeCategory.Length + 1);
+                    string parentNodeCategory = e.Node.Parent.Parent.Parent.Text.Split(' ').FirstOrDefault();
+                    string parentNode = e.Node.Parent.Parent.Parent.Text.Substring(parentNodeCategory.Length + 1);
+
+                    //Console.WriteLine(parentNode);
 
                     // Sets category text boxes
                     categoryTextBox.Text = parentNode;
                     categoryPictureTextBox.Text = categoryPictureFile[parentNode];
 
                     // Gets SubCategory nodes category portion of string and value portion
-                    string subCatNodeCategory = e.Node.Text.Split(' ').FirstOrDefault();
-                    string subCatNode = e.Node.Text.Substring(subCatNodeCategory.Length + 1);
+                    string subCatNodeCategory = e.Node.Parent.Parent.Text.Split(' ').FirstOrDefault();
+                    string subCatNode = e.Node.Parent.Parent.Text.Substring(subCatNodeCategory.Length + 1);
+                    subCatNode = subCatNode.Substring(0, subCatNode.IndexOf("PicFile:"));
+
+                    string subCatNodePic = e.Node.Parent.Parent.Text.Split(' ').LastOrDefault();
+
+                    //Console.WriteLine(subCatNodeCategory);
+
 
                     // Sets SubCategory text boxes
                     subCategoryTextBox.Text = subCatNode;
-                    subCatPicTextBox.Text = subCatPictureFile[subCatNode];
+                    subCatPicTextBox.Text = subCatNodePic;
 
                     foreach (TreeNode nodes in e.Node.Nodes)
                     {
                         // Gets category from string
                         string category = nodes.Text.Split(' ').FirstOrDefault();
 
+                        //Console.WriteLine(category);
+
                         // Gets value from string
                         string nodeValue = nodes.Text.Substring(category.Length + 1);
+
+                        Console.WriteLine(nodeValue);
+
 
                         switch (category)
                         {
@@ -309,6 +404,9 @@ namespace XMLBuilder
                                 functionTextBox.Text = nodeValue;
                                 xmlTreeView.SelectedNode = nodes;
                                 hasFunction = true;
+                                break;
+                            case "Measurements:":
+
                                 break;
 
                         }
@@ -347,9 +445,11 @@ namespace XMLBuilder
 
                     break;
                 case "Title:":
+                    titleIndex = e.Node.Index;
                     titleTextBox.Text = selectedNode;
                     break;
                 case "Text:":
+                    textIndex = e.Node.Index;
                     textTextBox.Text = selectedNode;
                     break;
                 case "Type:":
@@ -379,6 +479,52 @@ namespace XMLBuilder
                 case "Variable4:":
                     variable4TextBox.Text = selectedNode;
                     break;
+                case "Measurement_Title1:":
+                    measurement1TitleTB.Text = selectedNode;
+                    break;
+                case "Measurement_Title2:":
+                    measurement2TitleTB.Text = selectedNode;
+                    break;
+                case "Measurement_Title3:":
+                    measurement3TitleTB.Text = selectedNode;
+                    break;
+                case "Measurement_Type1:":
+                    measurement1TypeTB.Text = selectedNode;
+                    break;
+                case "Measurement_Type2:":
+                    measurement2TypeTB.Text = selectedNode;
+                    break;
+                case "Measurement_Type3:":
+                    measurement3TypeTB.Text = selectedNode;
+                    break;
+                case "Choices:":
+                    choicesTextBox.Text = selectedNode;
+                    break;
+                case "Choice_Title1:":
+                    choice1TitleTB.Text = selectedNode;
+                    break;
+                case "Choice_Picture1:":
+                    choice1PictureTB.Text = selectedNode;
+                    break;
+                case "Choice_Title2:":
+                    choice2TitleTB.Text = selectedNode;
+                    break;
+                case "Choice_Picture2:":
+                    choice2PictureTB.Text = selectedNode;
+                    break;
+                case "Choice_Title3:":
+                    textBox2.Text = selectedNode;
+                    break;
+                case "Choice_Picture3:":
+                    choice3PictureTB.Text = selectedNode;
+                    break;
+                case "Choice4:":
+                    choice2TitleTB.Text = selectedNode;
+                    //e.Node.Index();
+                    break;
+
+
+
             }
 
         }
@@ -395,13 +541,7 @@ namespace XMLBuilder
 
         private void saveXMLFile_Click(object sender, EventArgs e)
         {
-            XmlDocument savingXML = new XmlDocument();
-
             
-
-
-
-            //XmlTextWriter textWriter
         }
 
         private void xmlTreeView_MouseMove(object sender, MouseEventArgs e)
@@ -447,6 +587,103 @@ namespace XMLBuilder
                 categoryPictureTextBox.Text = videoFile.SafeFileName;
 
             }
+        }
+
+        private void functionGroupBox_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void meaurementsGroupBox_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void choicesGroupBox_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void choice1FileBrowser_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog pictureFile = new OpenFileDialog();
+
+            pictureFile.InitialDirectory = @"C:\\Pictures";
+
+            pictureFile.Filter = "Image Files (*.jpg) | *.jpg";
+
+            DialogResult dialogResults = pictureFile.ShowDialog();
+
+            if (dialogResults == DialogResult.OK)
+            {
+                choice1PictureTB.Text = pictureFile.SafeFileName;
+
+            }
+        }
+
+        private void choice2FileBrowser_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog pictureFile = new OpenFileDialog();
+
+            pictureFile.InitialDirectory = @"C:\\Pictures";
+
+            pictureFile.Filter = "Image Files (*.jpg) | *.jpg";
+
+            DialogResult dialogResults = pictureFile.ShowDialog();
+
+            if (dialogResults == DialogResult.OK)
+            {
+                choice2PictureTB.Text = pictureFile.SafeFileName;
+
+            }
+        }
+
+        private void choice3FileBrowser_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog pictureFile = new OpenFileDialog();
+
+            pictureFile.InitialDirectory = @"C:\\Pictures";
+
+            pictureFile.Filter = "Image Files (*.jpg) | *.jpg";
+
+            DialogResult dialogResults = pictureFile.ShowDialog();
+
+            if (dialogResults == DialogResult.OK)
+            {
+                choice3PictureTB.Text = pictureFile.SafeFileName;
+
+            }
+        }
+
+        private void importFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveChangesButton_Click(object sender, EventArgs e)
+        {
+            XmlDocument savingXML = new XmlDocument();
+
+            xmlTreeView.SelectedNode = xmlTreeView.Nodes[textIndex];
+
+            xmlTreeView.SelectedNode.Text = textTextBox.Text;
+
+            Console.WriteLine(xmlTreeView.SelectedNode);
+
+            var title = titleTextBox.Text;
+
+            var text = textTextBox.Text;
+
+            var type = typeTextBox.Text;
+
+            var weight = weightTextBox.Text;
+
+            //XmlTextWriter textWriter
+        }
+
+        private void xmlTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //textIndex = e.Node.Index;
         }
     }
 

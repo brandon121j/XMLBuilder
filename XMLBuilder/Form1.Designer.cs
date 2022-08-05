@@ -31,7 +31,6 @@ namespace XMLBuilder
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XMLReader));
             this.importFile = new DevExpress.XtraEditors.SimpleButton();
-            this.saveXMLFile = new DevExpress.XtraEditors.SimpleButton();
             this.categoryTextBox = new System.Windows.Forms.TextBox();
             this.categoryLabel = new System.Windows.Forms.Label();
             this.subCategory = new System.Windows.Forms.Label();
@@ -72,6 +71,38 @@ namespace XMLBuilder
             this.pictureTextBox = new System.Windows.Forms.TextBox();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.xmlTreeView = new System.Windows.Forms.TreeView();
+            this.choicesGroupBox = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.choice2PictureTB = new System.Windows.Forms.TextBox();
+            this.choice2TitleTB = new System.Windows.Forms.TextBox();
+            this.choice1PictureTB = new System.Windows.Forms.TextBox();
+            this.choice1TitleTB = new System.Windows.Forms.TextBox();
+            this.choicesTextBox = new System.Windows.Forms.TextBox();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.meaurementsGroupBox = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.measurement1TypeTB = new System.Windows.Forms.TextBox();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
+            this.measurement3TypeTB = new System.Windows.Forms.TextBox();
+            this.measurement3TitleTB = new System.Windows.Forms.TextBox();
+            this.measurement2TypeTB = new System.Windows.Forms.TextBox();
+            this.measurement2TitleTB = new System.Windows.Forms.TextBox();
+            this.measurement1TitleTB = new System.Windows.Forms.TextBox();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl18 = new DevExpress.XtraEditors.LabelControl();
+            this.choice3PictureTB = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.choice1FileBrowser = new DevExpress.XtraEditors.SimpleButton();
+            this.choice2FileBrowser = new DevExpress.XtraEditors.SimpleButton();
+            this.choice3FileBrowser = new DevExpress.XtraEditors.SimpleButton();
+            this.saveChangesButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.categoryControl)).BeginInit();
             this.categoryControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.stepsControl)).BeginInit();
@@ -80,6 +111,10 @@ namespace XMLBuilder
             this.functionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.choicesGroupBox)).BeginInit();
+            this.choicesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meaurementsGroupBox)).BeginInit();
+            this.meaurementsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // importFile
@@ -91,15 +126,6 @@ namespace XMLBuilder
             this.importFile.TabIndex = 1;
             this.importFile.Text = "Import File";
             this.importFile.Click += new System.EventHandler(this.importFile_Click);
-            // 
-            // saveXMLFile
-            // 
-            this.saveXMLFile.Location = new System.Drawing.Point(913, 747);
-            this.saveXMLFile.Name = "saveXMLFile";
-            this.saveXMLFile.Size = new System.Drawing.Size(130, 40);
-            this.saveXMLFile.TabIndex = 2;
-            this.saveXMLFile.Text = "Save XML File";
-            this.saveXMLFile.Click += new System.EventHandler(this.saveXMLFile_Click);
             // 
             // categoryTextBox
             // 
@@ -147,7 +173,7 @@ namespace XMLBuilder
             this.categoryControl.Controls.Add(this.categoryTextBox);
             this.categoryControl.Controls.Add(this.categoryPictureTextBox);
             this.categoryControl.Controls.Add(this.picture1Button);
-            this.categoryControl.Location = new System.Drawing.Point(336, 46);
+            this.categoryControl.Location = new System.Drawing.Point(336, 65);
             this.categoryControl.Name = "categoryControl";
             this.categoryControl.Size = new System.Drawing.Size(348, 280);
             this.categoryControl.TabIndex = 13;
@@ -217,7 +243,7 @@ namespace XMLBuilder
             this.stepsControl.Controls.Add(this.titleLabel);
             this.stepsControl.Controls.Add(this.textTextBox);
             this.stepsControl.Controls.Add(this.stepsLabel);
-            this.stepsControl.Location = new System.Drawing.Point(336, 359);
+            this.stepsControl.Location = new System.Drawing.Point(336, 368);
             this.stepsControl.Name = "stepsControl";
             this.stepsControl.Size = new System.Drawing.Size(348, 231);
             this.stepsControl.TabIndex = 14;
@@ -315,15 +341,17 @@ namespace XMLBuilder
             this.functionGroupBox.Controls.Add(this.variable1TextBox);
             this.functionGroupBox.Controls.Add(this.functionTextBox);
             this.functionGroupBox.Controls.Add(this.functionLabel);
-            this.functionGroupBox.Location = new System.Drawing.Point(715, 46);
+            this.functionGroupBox.Location = new System.Drawing.Point(1123, 65);
             this.functionGroupBox.Name = "functionGroupBox";
-            this.functionGroupBox.Size = new System.Drawing.Size(328, 450);
+            this.functionGroupBox.Size = new System.Drawing.Size(328, 307);
             this.functionGroupBox.TabIndex = 15;
             this.functionGroupBox.Text = "Function";
+            this.functionGroupBox.Visible = false;
+            this.functionGroupBox.Paint += new System.Windows.Forms.PaintEventHandler(this.functionGroupBox_Paint);
             // 
             // labelControl7
             // 
-            this.labelControl7.Location = new System.Drawing.Point(27, 401);
+            this.labelControl7.Location = new System.Drawing.Point(27, 280);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(68, 13);
             this.labelControl7.TabIndex = 49;
@@ -331,7 +359,7 @@ namespace XMLBuilder
             // 
             // labelControl5
             // 
-            this.labelControl5.Location = new System.Drawing.Point(27, 317);
+            this.labelControl5.Location = new System.Drawing.Point(27, 220);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(68, 13);
             this.labelControl5.TabIndex = 47;
@@ -339,7 +367,7 @@ namespace XMLBuilder
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(27, 233);
+            this.labelControl3.Location = new System.Drawing.Point(27, 160);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(68, 13);
             this.labelControl3.TabIndex = 45;
@@ -347,7 +375,7 @@ namespace XMLBuilder
             // 
             // variable1Name
             // 
-            this.variable1Name.Location = new System.Drawing.Point(27, 149);
+            this.variable1Name.Location = new System.Drawing.Point(27, 100);
             this.variable1Name.Name = "variable1Name";
             this.variable1Name.Size = new System.Drawing.Size(68, 13);
             this.variable1Name.TabIndex = 43;
@@ -355,42 +383,42 @@ namespace XMLBuilder
             // 
             // variable4TextBox
             // 
-            this.variable4TextBox.Location = new System.Drawing.Point(101, 397);
+            this.variable4TextBox.Location = new System.Drawing.Point(104, 276);
             this.variable4TextBox.Name = "variable4TextBox";
             this.variable4TextBox.Size = new System.Drawing.Size(200, 21);
             this.variable4TextBox.TabIndex = 40;
             // 
             // variable3TextBox
             // 
-            this.variable3TextBox.Location = new System.Drawing.Point(101, 313);
+            this.variable3TextBox.Location = new System.Drawing.Point(104, 216);
             this.variable3TextBox.Name = "variable3TextBox";
             this.variable3TextBox.Size = new System.Drawing.Size(200, 21);
             this.variable3TextBox.TabIndex = 37;
             // 
             // variable2TextBox
             // 
-            this.variable2TextBox.Location = new System.Drawing.Point(101, 229);
+            this.variable2TextBox.Location = new System.Drawing.Point(104, 156);
             this.variable2TextBox.Name = "variable2TextBox";
             this.variable2TextBox.Size = new System.Drawing.Size(200, 21);
             this.variable2TextBox.TabIndex = 4;
             // 
             // variable1TextBox
             // 
-            this.variable1TextBox.Location = new System.Drawing.Point(101, 145);
+            this.variable1TextBox.Location = new System.Drawing.Point(104, 96);
             this.variable1TextBox.Name = "variable1TextBox";
             this.variable1TextBox.Size = new System.Drawing.Size(200, 21);
             this.variable1TextBox.TabIndex = 2;
             // 
             // functionTextBox
             // 
-            this.functionTextBox.Location = new System.Drawing.Point(101, 61);
+            this.functionTextBox.Location = new System.Drawing.Point(104, 36);
             this.functionTextBox.Name = "functionTextBox";
             this.functionTextBox.Size = new System.Drawing.Size(200, 21);
             this.functionTextBox.TabIndex = 1;
             // 
             // functionLabel
             // 
-            this.functionLabel.Location = new System.Drawing.Point(27, 65);
+            this.functionLabel.Location = new System.Drawing.Point(27, 40);
             this.functionLabel.Name = "functionLabel";
             this.functionLabel.Size = new System.Drawing.Size(41, 13);
             this.functionLabel.TabIndex = 0;
@@ -404,7 +432,7 @@ namespace XMLBuilder
             this.groupControl1.Controls.Add(this.picture3Button);
             this.groupControl1.Controls.Add(this.pictureTextBox);
             this.groupControl1.Controls.Add(this.labelControl10);
-            this.groupControl1.Location = new System.Drawing.Point(335, 624);
+            this.groupControl1.Location = new System.Drawing.Point(732, 65);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(348, 163);
             this.groupControl1.TabIndex = 16;
@@ -463,21 +491,308 @@ namespace XMLBuilder
             // xmlTreeView
             // 
             this.xmlTreeView.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.xmlTreeView.Location = new System.Drawing.Point(13, 46);
+            this.xmlTreeView.Location = new System.Drawing.Point(13, 65);
             this.xmlTreeView.Name = "xmlTreeView";
-            this.xmlTreeView.Size = new System.Drawing.Size(297, 741);
+            this.xmlTreeView.Size = new System.Drawing.Size(297, 534);
             this.xmlTreeView.TabIndex = 17;
             this.xmlTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.xmlTreeView_AfterSelect);
+            this.xmlTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.xmlTreeView_NodeMouseClick);
             this.xmlTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.xmlTreeView_NodeMouseDoubleClick);
+            // 
+            // choicesGroupBox
+            // 
+            this.choicesGroupBox.Controls.Add(this.choice3FileBrowser);
+            this.choicesGroupBox.Controls.Add(this.choice2FileBrowser);
+            this.choicesGroupBox.Controls.Add(this.choice1FileBrowser);
+            this.choicesGroupBox.Controls.Add(this.labelControl17);
+            this.choicesGroupBox.Controls.Add(this.labelControl18);
+            this.choicesGroupBox.Controls.Add(this.choice3PictureTB);
+            this.choicesGroupBox.Controls.Add(this.textBox2);
+            this.choicesGroupBox.Controls.Add(this.labelControl1);
+            this.choicesGroupBox.Controls.Add(this.labelControl2);
+            this.choicesGroupBox.Controls.Add(this.labelControl4);
+            this.choicesGroupBox.Controls.Add(this.labelControl6);
+            this.choicesGroupBox.Controls.Add(this.choice2PictureTB);
+            this.choicesGroupBox.Controls.Add(this.choice2TitleTB);
+            this.choicesGroupBox.Controls.Add(this.choice1PictureTB);
+            this.choicesGroupBox.Controls.Add(this.choice1TitleTB);
+            this.choicesGroupBox.Controls.Add(this.choicesTextBox);
+            this.choicesGroupBox.Controls.Add(this.labelControl8);
+            this.choicesGroupBox.Location = new System.Drawing.Point(1123, 65);
+            this.choicesGroupBox.Name = "choicesGroupBox";
+            this.choicesGroupBox.Size = new System.Drawing.Size(328, 353);
+            this.choicesGroupBox.TabIndex = 18;
+            this.choicesGroupBox.Text = "Choices";
+            this.choicesGroupBox.Visible = false;
+            this.choicesGroupBox.Paint += new System.Windows.Forms.PaintEventHandler(this.choicesGroupBox_Paint);
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(27, 223);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(68, 13);
+            this.labelControl1.TabIndex = 49;
+            this.labelControl1.Text = "Choice Picture";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(27, 181);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(55, 13);
+            this.labelControl2.TabIndex = 47;
+            this.labelControl2.Text = "Choice Title";
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Location = new System.Drawing.Point(27, 139);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(68, 13);
+            this.labelControl4.TabIndex = 45;
+            this.labelControl4.Text = "Choice Picture";
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(27, 97);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(55, 13);
+            this.labelControl6.TabIndex = 43;
+            this.labelControl6.Text = "Choice Title";
+            // 
+            // choice2PictureTB
+            // 
+            this.choice2PictureTB.Location = new System.Drawing.Point(142, 219);
+            this.choice2PictureTB.Name = "choice2PictureTB";
+            this.choice2PictureTB.Size = new System.Drawing.Size(162, 21);
+            this.choice2PictureTB.TabIndex = 40;
+            // 
+            // choice2TitleTB
+            // 
+            this.choice2TitleTB.Location = new System.Drawing.Point(104, 177);
+            this.choice2TitleTB.Name = "choice2TitleTB";
+            this.choice2TitleTB.Size = new System.Drawing.Size(200, 21);
+            this.choice2TitleTB.TabIndex = 37;
+            // 
+            // choice1PictureTB
+            // 
+            this.choice1PictureTB.Location = new System.Drawing.Point(142, 135);
+            this.choice1PictureTB.Name = "choice1PictureTB";
+            this.choice1PictureTB.Size = new System.Drawing.Size(162, 21);
+            this.choice1PictureTB.TabIndex = 4;
+            // 
+            // choice1TitleTB
+            // 
+            this.choice1TitleTB.Location = new System.Drawing.Point(104, 93);
+            this.choice1TitleTB.Name = "choice1TitleTB";
+            this.choice1TitleTB.Size = new System.Drawing.Size(200, 21);
+            this.choice1TitleTB.TabIndex = 2;
+            // 
+            // choicesTextBox
+            // 
+            this.choicesTextBox.Location = new System.Drawing.Point(104, 51);
+            this.choicesTextBox.Name = "choicesTextBox";
+            this.choicesTextBox.Size = new System.Drawing.Size(200, 21);
+            this.choicesTextBox.TabIndex = 1;
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Location = new System.Drawing.Point(27, 55);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(37, 13);
+            this.labelControl8.TabIndex = 0;
+            this.labelControl8.Text = "Choices";
+            // 
+            // meaurementsGroupBox
+            // 
+            this.meaurementsGroupBox.Controls.Add(this.labelControl14);
+            this.meaurementsGroupBox.Controls.Add(this.measurement1TypeTB);
+            this.meaurementsGroupBox.Controls.Add(this.labelControl9);
+            this.meaurementsGroupBox.Controls.Add(this.labelControl12);
+            this.meaurementsGroupBox.Controls.Add(this.labelControl13);
+            this.meaurementsGroupBox.Controls.Add(this.labelControl16);
+            this.meaurementsGroupBox.Controls.Add(this.measurement3TypeTB);
+            this.meaurementsGroupBox.Controls.Add(this.measurement3TitleTB);
+            this.meaurementsGroupBox.Controls.Add(this.measurement2TypeTB);
+            this.meaurementsGroupBox.Controls.Add(this.measurement2TitleTB);
+            this.meaurementsGroupBox.Controls.Add(this.measurement1TitleTB);
+            this.meaurementsGroupBox.Controls.Add(this.labelControl15);
+            this.meaurementsGroupBox.Location = new System.Drawing.Point(733, 247);
+            this.meaurementsGroupBox.Name = "meaurementsGroupBox";
+            this.meaurementsGroupBox.Size = new System.Drawing.Size(347, 352);
+            this.meaurementsGroupBox.TabIndex = 19;
+            this.meaurementsGroupBox.Text = "Measurements";
+            this.meaurementsGroupBox.Visible = false;
+            this.meaurementsGroupBox.Paint += new System.Windows.Forms.PaintEventHandler(this.meaurementsGroupBox_Paint);
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Location = new System.Drawing.Point(24, 103);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(78, 13);
+            this.labelControl14.TabIndex = 55;
+            this.labelControl14.Text = "Measurent Type";
+            // 
+            // measurement1TypeTB
+            // 
+            this.measurement1TypeTB.Location = new System.Drawing.Point(123, 99);
+            this.measurement1TypeTB.Name = "measurement1TypeTB";
+            this.measurement1TypeTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement1TypeTB.TabIndex = 54;
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Location = new System.Drawing.Point(24, 315);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(78, 13);
+            this.labelControl9.TabIndex = 53;
+            this.labelControl9.Text = "Measurent Type";
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Location = new System.Drawing.Point(24, 262);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(74, 13);
+            this.labelControl12.TabIndex = 52;
+            this.labelControl12.Text = "Measurent Title";
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Location = new System.Drawing.Point(24, 209);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(92, 13);
+            this.labelControl13.TabIndex = 51;
+            this.labelControl13.Text = "Measurement Type";
+            // 
+            // labelControl16
+            // 
+            this.labelControl16.Location = new System.Drawing.Point(24, 156);
+            this.labelControl16.Name = "labelControl16";
+            this.labelControl16.Size = new System.Drawing.Size(74, 13);
+            this.labelControl16.TabIndex = 50;
+            this.labelControl16.Text = "Measurent Title";
+            // 
+            // measurement3TypeTB
+            // 
+            this.measurement3TypeTB.Location = new System.Drawing.Point(123, 311);
+            this.measurement3TypeTB.Name = "measurement3TypeTB";
+            this.measurement3TypeTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement3TypeTB.TabIndex = 40;
+            // 
+            // measurement3TitleTB
+            // 
+            this.measurement3TitleTB.Location = new System.Drawing.Point(123, 258);
+            this.measurement3TitleTB.Name = "measurement3TitleTB";
+            this.measurement3TitleTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement3TitleTB.TabIndex = 37;
+            // 
+            // measurement2TypeTB
+            // 
+            this.measurement2TypeTB.Location = new System.Drawing.Point(123, 205);
+            this.measurement2TypeTB.Name = "measurement2TypeTB";
+            this.measurement2TypeTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement2TypeTB.TabIndex = 4;
+            // 
+            // measurement2TitleTB
+            // 
+            this.measurement2TitleTB.Location = new System.Drawing.Point(123, 152);
+            this.measurement2TitleTB.Name = "measurement2TitleTB";
+            this.measurement2TitleTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement2TitleTB.TabIndex = 2;
+            // 
+            // measurement1TitleTB
+            // 
+            this.measurement1TitleTB.Location = new System.Drawing.Point(123, 46);
+            this.measurement1TitleTB.Name = "measurement1TitleTB";
+            this.measurement1TitleTB.Size = new System.Drawing.Size(200, 21);
+            this.measurement1TitleTB.TabIndex = 1;
+            // 
+            // labelControl15
+            // 
+            this.labelControl15.Location = new System.Drawing.Point(24, 50);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(74, 13);
+            this.labelControl15.TabIndex = 0;
+            this.labelControl15.Text = "Measurent Title";
+            // 
+            // labelControl17
+            // 
+            this.labelControl17.Location = new System.Drawing.Point(27, 307);
+            this.labelControl17.Name = "labelControl17";
+            this.labelControl17.Size = new System.Drawing.Size(68, 13);
+            this.labelControl17.TabIndex = 53;
+            this.labelControl17.Text = "Choice Picture";
+            // 
+            // labelControl18
+            // 
+            this.labelControl18.Location = new System.Drawing.Point(27, 265);
+            this.labelControl18.Name = "labelControl18";
+            this.labelControl18.Size = new System.Drawing.Size(55, 13);
+            this.labelControl18.TabIndex = 52;
+            this.labelControl18.Text = "Choice Title";
+            // 
+            // choice3PictureTB
+            // 
+            this.choice3PictureTB.Location = new System.Drawing.Point(142, 303);
+            this.choice3PictureTB.Name = "choice3PictureTB";
+            this.choice3PictureTB.Size = new System.Drawing.Size(162, 21);
+            this.choice3PictureTB.TabIndex = 51;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(104, 261);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(200, 21);
+            this.textBox2.TabIndex = 50;
+            // 
+            // choice1FileBrowser
+            // 
+            this.choice1FileBrowser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.choice1FileBrowser.Location = new System.Drawing.Point(104, 135);
+            this.choice1FileBrowser.Name = "choice1FileBrowser";
+            this.choice1FileBrowser.Size = new System.Drawing.Size(41, 21);
+            this.choice1FileBrowser.TabIndex = 54;
+            this.choice1FileBrowser.Text = "Files";
+            this.choice1FileBrowser.Click += new System.EventHandler(this.choice1FileBrowser_Click);
+            // 
+            // choice2FileBrowser
+            // 
+            this.choice2FileBrowser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.choice2FileBrowser.Location = new System.Drawing.Point(104, 219);
+            this.choice2FileBrowser.Name = "choice2FileBrowser";
+            this.choice2FileBrowser.Size = new System.Drawing.Size(41, 21);
+            this.choice2FileBrowser.TabIndex = 55;
+            this.choice2FileBrowser.Text = "Files";
+            this.choice2FileBrowser.Click += new System.EventHandler(this.choice2FileBrowser_Click);
+            // 
+            // choice3FileBrowser
+            // 
+            this.choice3FileBrowser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.choice3FileBrowser.Location = new System.Drawing.Point(104, 303);
+            this.choice3FileBrowser.Name = "choice3FileBrowser";
+            this.choice3FileBrowser.Size = new System.Drawing.Size(41, 21);
+            this.choice3FileBrowser.TabIndex = 56;
+            this.choice3FileBrowser.Text = "Files";
+            this.choice3FileBrowser.Click += new System.EventHandler(this.choice3FileBrowser_Click);
+            // 
+            // saveChangesButton
+            // 
+            this.saveChangesButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.saveChangesButton.Location = new System.Drawing.Point(1348, 571);
+            this.saveChangesButton.Name = "saveChangesButton";
+            this.saveChangesButton.Size = new System.Drawing.Size(103, 28);
+            this.saveChangesButton.TabIndex = 21;
+            this.saveChangesButton.Text = "Save Changes";
+            this.saveChangesButton.Click += new System.EventHandler(this.saveChangesButton_Click);
             // 
             // XMLReader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1075, 799);
-            this.Controls.Add(this.groupControl1);
+            this.ClientSize = new System.Drawing.Size(1463, 632);
+            this.Controls.Add(this.saveChangesButton);
             this.Controls.Add(this.functionGroupBox);
-            this.Controls.Add(this.saveXMLFile);
+            this.Controls.Add(this.choicesGroupBox);
+            this.Controls.Add(this.meaurementsGroupBox);
+            this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.importFile);
             this.Controls.Add(this.categoryControl);
             this.Controls.Add(this.stepsControl);
@@ -498,13 +813,18 @@ namespace XMLBuilder
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.choicesGroupBox)).EndInit();
+            this.choicesGroupBox.ResumeLayout(false);
+            this.choicesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meaurementsGroupBox)).EndInit();
+            this.meaurementsGroupBox.ResumeLayout(false);
+            this.meaurementsGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private DevExpress.XtraEditors.SimpleButton importFile;
-        private DevExpress.XtraEditors.SimpleButton saveXMLFile;
         private System.Windows.Forms.TextBox categoryTextBox;
         private System.Windows.Forms.Label categoryLabel;
         private System.Windows.Forms.Label subCategory;
@@ -545,6 +865,38 @@ namespace XMLBuilder
         private DevExpress.XtraEditors.SimpleButton picture1Button;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.GroupControl choicesGroupBox;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private System.Windows.Forms.TextBox choice2PictureTB;
+        private System.Windows.Forms.TextBox choice2TitleTB;
+        private System.Windows.Forms.TextBox choice1PictureTB;
+        private System.Windows.Forms.TextBox choice1TitleTB;
+        private System.Windows.Forms.TextBox choicesTextBox;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.GroupControl meaurementsGroupBox;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private System.Windows.Forms.TextBox measurement1TypeTB;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.LabelControl labelControl16;
+        private System.Windows.Forms.TextBox measurement3TypeTB;
+        private System.Windows.Forms.TextBox measurement3TitleTB;
+        private System.Windows.Forms.TextBox measurement2TypeTB;
+        private System.Windows.Forms.TextBox measurement2TitleTB;
+        private System.Windows.Forms.TextBox measurement1TitleTB;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private DevExpress.XtraEditors.LabelControl labelControl17;
+        private DevExpress.XtraEditors.LabelControl labelControl18;
+        private System.Windows.Forms.TextBox choice3PictureTB;
+        private System.Windows.Forms.TextBox textBox2;
+        private DevExpress.XtraEditors.SimpleButton choice3FileBrowser;
+        private DevExpress.XtraEditors.SimpleButton choice2FileBrowser;
+        private DevExpress.XtraEditors.SimpleButton choice1FileBrowser;
+        private DevExpress.XtraEditors.SimpleButton saveChangesButton;
     }
 }
 
